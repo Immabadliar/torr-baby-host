@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <script src="src/profile.js"></script>
   <title>Dashboard</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
@@ -58,48 +59,5 @@
     </div>
     <p id="username"></p>
   </div>
-
-  <script>
-    async function getCurrentUser() {
-      const res = await fetch("/api/user");
-      if (!res.ok) {
-        window.location.href = "/login";
-        return null;
-      }
-      return res.json();
-    }
-
-    async function getStatus(userId) {
-      const res = await fetch(`/api/status/${userId}`);
-      if (!res.ok) return { status: "offline" };
-      return res.json();
-    }
-
-    function statusClass(status) {
-      if (!status) return "offline";
-      status = status.toLowerCase();
-
-      if (status === "online") return "online";
-      if (status === "idle") return "idle";
-      if (status === "dnd" || status === "do_not_disturb") return "dnd";
-      return "offline";
-    }
-
-    async function init() {
-      const user = await getCurrentUser();
-      if (!user) return;
-
-      document.getElementById("username").textContent = `${user.username}#${user.discriminator}`;
-      document.getElementById("avatar").src = `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
-
-      const statusData = await getStatus(user.id);
-      console.log("Raw status received:", statusData.status);  // Debug log
-
-      const dot = document.getElementById("statusDot");
-      dot.className = "status-dot " + statusClass(statusData.status);
-    }
-
-    init();
-  </script>
 </body>
 </html>

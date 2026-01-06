@@ -5,7 +5,7 @@
   <title>Redirecting to Discord Login</title>
   <script>
     const CLIENT_ID = "1383861563559252160";
-    const REDIRECT_URI = encodeURIComponent("https://torr.baby/auth/discord/callback");
+    const REDIRECT_URI = encodeURIComponent("https://torr.baby/api/callback");
 
     const oauth2Url = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
 
